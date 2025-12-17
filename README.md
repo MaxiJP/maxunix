@@ -1,5 +1,6 @@
-From: max@maxprime.dev (Max Prime)
-Date: 17 Dec 25 20:14:44 GMT
+**From: max@maxprime.dev (Max Prime)**
+
+**Date: 17 Dec 25 20:14:44 GMT**
 
 Hello everybody out there using linux -
 
