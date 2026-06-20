@@ -1,18 +1,27 @@
-all: kernel link assembly
+all: kernel assembly link qemu
 
 CC = i686-elf-gcc
-AS = i686-elf-as
+CFLAGS=-std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
-KERNEL_OUTPUT = maxunix-kernel.bin
+AS = i686-elf-as
+ASFLAGS=
+
+KERNEL_FILES=kernel/kernel
+
+KERNEL_OUTPUT = build/maxunix-kernel.bin
 
 kernel:
-	$(CC) -c kernel.c -o kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-
-link:
-	$(CC) -T linker.ld -o $(KERNEL_OUTPUT) -ffreestanding -O2 -nostdlib boot.o kernel.o -lgcc
+	$(CC) -c $(KERNEL_FILES)/kernel.c -o build/kernel.o $(CFLAGS)
+	$(CC) -c kernel/arch/tty.c -o build/tty.o $(CFLAGS)
 
 assembly:
-	$(AS) boot.s -o boot.o
+	$(AS) $(KERNEL_FILES)/boot.s -o build/boot.o $(ASFLAGS)
+
+link:
+	$(CC) -T $(KERNEL_FILES)/linker.ld -o $(KERNEL_OUTPUT) -ffreestanding -O2 -nostdlib build/tty.o build/boot.o build/kernel.o -lgcc
 
 qemu:
 	qemu-system-i386 -kernel $(KERNEL_OUTPUT)
+
+clean:
+	rm build/*
