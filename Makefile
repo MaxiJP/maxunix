@@ -23,5 +23,10 @@ link:
 qemu:
 	qemu-system-i386 -kernel $(KERNEL_OUTPUT)
 
+iso:
+	cp $(KERNEL_OUTPUT) isodir/boot/maxunix-kernel.bin
+	grub-mkrescue -o maxunix.iso isodir
+	qemu-system-x86_64 -cdrom maxunix.iso
+
 clean:
 	rm build/*
