@@ -28,12 +28,6 @@ void kernel_early_main(void) {
 
 void kernel_main(void) {
 
-	for (int i = 0; i < 20; i++) {
-		printf("Hello, Max Unix World! \n");
-	}
-
-	for (int i = 0; i < 20; i++) {
-		printf("17!asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfaasdfasdfasdfasdfasdfasdfasdfasdfasdfsdfasdfasdfasdfasdfasdfasdfasdf\n");
-	}
+	printf("Hello, Max Unix World!\n17");
 	
 }

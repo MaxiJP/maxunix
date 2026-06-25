@@ -13,8 +13,8 @@ OUTPUT_DIR  = build
 all: $(OUTPUT_DIR)/maxunix-kernel.bin
 
 SRCS = \
-	kernel/kernel/kernel.c \
-	kernel/arch/tty.c \
+	kernel/arch/i686/kernel.c \
+	kernel/arch/i686/tty.c \
 	libc/strlen.c \
 	libc/strcpy.c \
 	libc/printf.c
@@ -27,11 +27,11 @@ $(OUTPUT_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -I$(LIBC_INCLUDE_DIR) -c $< -o $@ 
 
-$(BOOT_OBJ): kernel/kernel/boot.s
+$(BOOT_OBJ): kernel/boot.s
 	$(AS) $< -o $@ $(ASFLAGS)
 
 $(OUTPUT_DIR)/maxunix-kernel.bin: $(OBJS) $(BOOT_OBJ)
-	$(CC) -T kernel/kernel/linker.ld $(LFLAGS) -o $@ $^
+	$(CC) -T kernel/linker.ld $(LFLAGS) -o $@ $^
 
 qemu:
 	qemu-system-i386 -kernel $(OUTPUT_DIR)/maxunix-kernel.bin
