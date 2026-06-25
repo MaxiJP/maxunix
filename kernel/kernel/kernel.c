@@ -17,11 +17,11 @@
 	Copyright (c) Max Prime 2026. All rights reserved.
 */
 
-#include "../include/kernel/tty.h"
+#include <kernel/tty.h>
 
 void kernel_main(void) 
 {
 	terminal_initialize();
 
-	kprintf("Hello, Max Unix World!");
+	kprintf("Hello, Max Unix World! yay2");
 }

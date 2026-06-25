@@ -1,32 +1,41 @@
-all: kernel assembly link qemu
-
 CC = i686-elf-gcc
 CFLAGS=-std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
 AS = i686-elf-as
 ASFLAGS=
 
-KERNEL_FILES=kernel/kernel
+LFLAGS=-ffreestanding -O2 -nostdlib -lgcc
 
-KERNEL_OUTPUT = build/maxunix-kernel.bin
+INCLUDE_DIR = include
+OUTPUT_DIR  = build
 
-kernel:
-	$(CC) -c $(KERNEL_FILES)/kernel.c -o build/kernel.o $(CFLAGS)
-	$(CC) -c kernel/arch/tty.c -o build/tty.o $(CFLAGS)
+all: $(OUTPUT_DIR)/maxunix-kernel.bin
 
-assembly:
-	$(AS) $(KERNEL_FILES)/boot.s -o build/boot.o $(ASFLAGS)
+SRCS = \
+	kernel/kernel/kernel.c \
+	kernel/arch/tty.c 
 
-link:
-	$(CC) -T $(KERNEL_FILES)/linker.ld -o $(KERNEL_OUTPUT) -ffreestanding -O2 -nostdlib build/tty.o build/boot.o build/kernel.o -lgcc
+OBJS = $(patsubst %.c, $(OUTPUT_DIR)/%.o, $(SRCS))
+
+BOOT_OBJ=$(OUTPUT_DIR)/boot.o
+
+$(OUTPUT_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@ 
+
+$(BOOT_OBJ): kernel/kernel/boot.s
+	$(AS) $< -o $@ $(ASFLAGS)
+
+$(OUTPUT_DIR)/maxunix-kernel.bin: $(OBJS) $(BOOT_OBJ)
+	$(CC) -T kernel/kernel/linker.ld $(LFLAGS) -o $@ $^
 
 qemu:
-	qemu-system-i386 -kernel $(KERNEL_OUTPUT)
+	qemu-system-i386 -kernel $(OUTPUT_DIR)/maxunix-kernel.bin
 
 iso:
-	cp $(KERNEL_OUTPUT) isodir/boot/maxunix-kernel.bin
+	cp $(OUTPUT_DIR)/maxunix-kernel.bin isodir/boot/maxunix-kernel.bin
 	grub-mkrescue -o maxunix.iso isodir
 	qemu-system-x86_64 -cdrom maxunix.iso
 
 clean:
-	rm build/*
+	rm -rf build/*

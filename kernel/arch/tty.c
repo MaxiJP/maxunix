@@ -21,9 +21,11 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "../kernel/vga.h"
+#include <kernel/tty.h>
+#include <kernel/vga.h>
 
 #define VGA_MEMORY  0xB8000 
+
 
 size_t terminal_row;
 size_t terminal_column;
