@@ -18,10 +18,22 @@
 */
 
 #include <kernel/tty.h>
+#include <stdio.h>
 
-void kernel_main(void) 
-{
+void kernel_early_main(void) {
 	terminal_initialize();
 
-	kprintf("Hello, Max Unix World! yay2");
+	printf("Max Unix early kernel...\n");
+}
+
+void kernel_main(void) {
+
+	for (int i = 0; i < 20; i++) {
+		printf("Hello, Max Unix World! \n");
+	}
+
+	for (int i = 0; i < 20; i++) {
+		printf("17!asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfaasdfasdfasdfasdfasdfasdfasdfasdfasdfsdfasdfasdfasdfasdfasdfasdfasdf\n");
+	}
+	
 }

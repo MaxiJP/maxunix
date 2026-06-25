@@ -23,6 +23,8 @@ stack_top:
 .type _start, @function
 _start:
 
+	call kernel_early_main
+
 	mov $stack_top, %esp
 
 	call kernel_main

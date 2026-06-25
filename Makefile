@@ -7,13 +7,17 @@ ASFLAGS=
 LFLAGS=-ffreestanding -O2 -nostdlib -lgcc
 
 INCLUDE_DIR = include
+LIBC_INCLUDE_DIR = include/libc
 OUTPUT_DIR  = build
 
 all: $(OUTPUT_DIR)/maxunix-kernel.bin
 
 SRCS = \
 	kernel/kernel/kernel.c \
-	kernel/arch/tty.c 
+	kernel/arch/tty.c \
+	libc/strlen.c \
+	libc/strcpy.c \
+	libc/printf.c
 
 OBJS = $(patsubst %.c, $(OUTPUT_DIR)/%.o, $(SRCS))
 
@@ -21,7 +25,7 @@ BOOT_OBJ=$(OUTPUT_DIR)/boot.o
 
 $(OUTPUT_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@ 
+	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -I$(LIBC_INCLUDE_DIR) -c $< -o $@ 
 
 $(BOOT_OBJ): kernel/kernel/boot.s
 	$(AS) $< -o $@ $(ASFLAGS)

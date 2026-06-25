@@ -26,5 +26,6 @@ void terminal_initialize(void);
 void terminal_putchar(char c);
 void terminal_write(const char* data, size_t size);
 void kprintf(const char* data);
+void handle_new_line(void);
 
 #endif
