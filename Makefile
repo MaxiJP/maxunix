@@ -15,6 +15,7 @@ all: $(OUTPUT_DIR)/maxunix-kernel.bin
 SRCS = \
 	kernel/arch/i686/kernel.c \
 	kernel/arch/i686/tty.c \
+	kernel/arch/i686/serial.c \
 	libc/strlen.c \
 	libc/strcpy.c \
 	libc/printf.c
@@ -34,12 +35,12 @@ $(OUTPUT_DIR)/maxunix-kernel.bin: $(OBJS) $(BOOT_OBJ)
 	$(CC) -T kernel/linker.ld $(LFLAGS) -o $@ $^
 
 qemu:
-	qemu-system-i386 -kernel $(OUTPUT_DIR)/maxunix-kernel.bin
+	qemu-system-i386 -kernel $(OUTPUT_DIR)/maxunix-kernel.bin -serial stdio
 
 iso:
 	cp $(OUTPUT_DIR)/maxunix-kernel.bin isodir/boot/maxunix-kernel.bin
 	grub-mkrescue -o maxunix.iso isodir
-	qemu-system-x86_64 -cdrom maxunix.iso
+	qemu-system-x86_64 -cdrom maxunix.iso -serial stdio
 
 clean:
 	rm -rf build/*

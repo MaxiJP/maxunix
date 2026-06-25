@@ -17,17 +17,25 @@
 	Copyright (c) Max Prime 2026. All rights reserved.
 */
 
+#include <kernel/serial.h>
 #include <kernel/tty.h>
 #include <stdio.h>
+#include <stdint.h>
 
 void kernel_early_main(void) {
+	printf("[EARLY MAIN] Max Unix early kernel...\n");
+
 	terminal_initialize();
 
-	printf("Max Unix early kernel...\n");
+	if (init_serial()==1) {
+		printf("[EARLY MAIN] Serial failure.\n");
+	} else {
+		printf("[EARLY MAIN] Serial success.\n");
+	}
 }
 
 void kernel_main(void) {
 
-	printf("Hello, Max Unix World!\n17");
+	printf("[MAIN] Hello, Max Unix World!\n17");
 	
 }

@@ -55,7 +55,6 @@ void scroll_terminal(void) {
 	for (int i = 0; i < VGA_HEIGHT * VGA_WIDTH; i++) {
 		terminal_buffer[i] = terminal_buffer[i+80];
 	}
-	terminal_buffer[1918] = vga_entry('e', 0b00001111);
 	terminal_row = 25;
 }
 

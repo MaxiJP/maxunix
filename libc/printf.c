@@ -1,7 +1,16 @@
+#include <kernel/serial.h>
 #include <kernel/tty.h>
 #include <string.h>
 
 #include <stdio.h>
+
+void serial_printf(const char* data, ...) 
+{
+	size_t size = strlen(data);
+	for (size_t i = 0; i < size; i++) {
+        outb(PORT, data[i]);
+	}
+}
 
 void printf(const char* data, ...) 
 {
@@ -15,4 +24,5 @@ void printf(const char* data, ...)
                 terminal_putchar(data[i]);
         }
 	}
+    serial_printf(data);
 }
