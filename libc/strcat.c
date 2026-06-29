@@ -19,9 +19,14 @@
 
 #include <string.h>
 
-size_t strlen(const char* str) {
-	size_t len = 0;
-	while (str[len])
-		len++;
-	return len;
+char* strcat(char* dest, char* src) {
+    int length1 = strlen(dest);
+    int length2 = strlen(src);
+
+    for (int i = 0; i < length2; i++) {
+        dest[length1+i] = src[i];
+    }
+    dest[length1+length2]='\0';
+    
+    return dest;
 }

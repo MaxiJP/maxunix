@@ -17,11 +17,18 @@
 	Copyright (c) Max Prime 2026. All rights reserved.
 */
 
-#include <string.h>
+#ifndef _UTSNAME_H
+#define _UTSNAME_H
 
-size_t strlen(const char* str) {
-	size_t len = 0;
-	while (str[len])
-		len++;
-	return len;
-}
+struct utsname {
+    char nodename[100];
+    char sysname[100];
+    char release[100];
+    char version[100];
+    char machine[100];
+	char _domainname[100];
+};
+
+void uname(struct utsname *info);
+
+#endif

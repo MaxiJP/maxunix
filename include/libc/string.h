@@ -23,5 +23,7 @@
 #include <stddef.h>
 
 size_t strlen(const char* str);
+char* strcat(char* dest, char* src);
+char* strcpy(char* dest, char* src);
 
 #endif

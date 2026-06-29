@@ -17,11 +17,21 @@
 	Copyright (c) Max Prime 2026. All rights reserved.
 */
 
+#define SYSNAME "MaxUnix"
+#define NODENAME "maxunix"
+#define RELEASE "0.0.1"
+#define VERSION "v1"
+#define MACHINE "i686"
+#define DOMAINNAME "(none)"
+
+#include <sys/utsname.h>
 #include <string.h>
 
-size_t strlen(const char* str) {
-	size_t len = 0;
-	while (str[len])
-		len++;
-	return len;
+void uname(struct utsname *info) {
+    strcpy(info->nodename, NODENAME);
+    strcpy(info->sysname, SYSNAME);
+    strcpy(info->release, RELEASE);
+    strcpy(info->version, VERSION);
+    strcpy(info->machine, MACHINE);
+	strcpy(info->_domainname, DOMAINNAME);
 }

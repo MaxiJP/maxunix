@@ -16,8 +16,10 @@ SRCS = \
 	kernel/arch/i686/kernel.c \
 	kernel/arch/i686/tty.c \
 	kernel/arch/i686/serial.c \
+	libc/utsname.c \
 	libc/strlen.c \
 	libc/strcpy.c \
+	libc/strcat.c \
 	libc/printf.c
 
 OBJS = $(patsubst %.c, $(OUTPUT_DIR)/%.o, $(SRCS))
