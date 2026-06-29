@@ -61,7 +61,7 @@ void maxfetch(struct utsname info) {
 		printf(ascii_art[i]);
 	}
 	printf("\n");
-	printf(strcat(output, "\n"));
+	printf("%s%s", output, "\n");
 }
 
 void kernel_early_main(void) {
@@ -82,7 +82,7 @@ void kernel_main(void) {
 	struct utsname info;
 	uname(&info);
 
-	printf("[MAIN] Hello, Max Unix World!\n");
+	printf("[MAIN] Hello, Max Unix World!\n%s", "17\n");
 
 	maxfetch(info);
 

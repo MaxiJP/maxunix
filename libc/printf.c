@@ -20,28 +20,57 @@
 #include <kernel/serial.h>
 #include <kernel/tty.h>
 #include <string.h>
-
+#include <stdarg.h>
 #include <stdio.h>
 
-void serial_printf(const char* data, ...) 
+void serial_puts(const char data) 
 {
-	size_t size = strlen(data);
-	for (size_t i = 0; i < size; i++) {
-        outb(PORT, data[i]);
-	}
+    outb(PORT, data);
 }
 
 void printf(const char* data, ...) 
 {
+	int argsize = 0;
 	size_t size = strlen(data);
 	for (size_t i = 0; i < size; i++) {
         switch (data[i]) {
-            case '\n':
-                handle_new_line();
-                break;
-            default:
-                terminal_putchar(data[i]);
+			case '%':
+				++i;
+				++argsize;
+				break;
         }
 	}
-    serial_printf(data);
+
+	va_list args;
+	va_start(args, argsize);
+
+	for (size_t j = 0; j < size; j++) {
+        switch (data[j]) {
+            case '\n':
+                handle_new_line();
+				serial_puts('\n');
+                break;
+			case '%':
+				j++;
+				switch (data[j]) {
+					case '%':
+						// its just a percent sign
+						terminal_putchar('%');
+						break;
+					case 's':
+						printf(va_arg(args, char*));
+						break;
+					case 'd':
+						// its an integer, idfk man
+						break;
+				}
+				break;
+            default:
+                terminal_putchar(data[j]);
+				serial_puts(data[j]);
+        }
+	}
+
 }
+
+
