@@ -7,7 +7,7 @@
 ## About
 **Manix (Max Unix)** is a hobby operating system made by me, Max Prime! I've been using Linux for over 2 years (Arch, btw) and I have loved the prospect of OS development maybe since I was 7 or so. I have always wanted to build and OS where I keep enough unix to feel at home but enough difference to feel like I haven't reinvented the wheel. So, here I am doing weird and random things that are almost intentional in how much they break POSIX. Oh yeah, if you are looking for something POSIX compliant to see if your program runs on it, you're in the wrong place
 
--1500 odds that I actually finish this project.
+![Screenshot](screenshot.png)
 
 ## Prerequisites
 You will need make, and that is about it. For packages that you can just install from the command line that is. On top of this, you will need to bring your own previously-compiled i686-elf target GCC and AS. Once you have done this, the makefile will do everything else and build nicely with "make".
