@@ -24,38 +24,17 @@
 #include <string.h>
 #include <stdio.h>
 
-void kernel_early_main(void) {
-
-	terminal_initialize();
-
-	printf("[EARLY MAIN] Max Unix early kernel...\n");
-
-	if (init_serial()==1) {
-		printf("[EARLY MAIN] Serial failure.\n");
-	} else {
-		printf("[EARLY MAIN] Serial success.\n");
-	}
-}
-
-void kernel_main(void) {
-
-	struct utsname info;
-	uname(&info);
-
-	printf(strcat(info.sysname, "\n"));
-
-	printf("[MAIN] Hello, Max Unix World!\n");
-
+void maxfetch(struct utsname info) {
 	char ascii_art[10][100];
 	strcpy(ascii_art[0], " ▄███████████████▄ Kernel:       ");
-	strcpy(ascii_art[1], " █████████████████ Hostname:     ");
+	strcpy(ascii_art[1], "\n █████████████████ Hostname:     ");
 	strcpy(ascii_art[2], "\n █████████████████ Release:      ");
 	strcpy(ascii_art[3], "\n █████████████████ Architecture: ");
 	strcpy(ascii_art[4], "\n █████████████████ Domain name:  ");
 	strcpy(ascii_art[5], "\n █████████████████");
-	strcpy(ascii_art[6], "\n ███  █  ⠀█⠀ ██ ██");
-	strcpy(ascii_art[7], "\n ███    █⠀█⠀ ██ ██");
-	strcpy(ascii_art[8], "\n ███ █  █⠀█     ██ Author: Max Prime");
+	strcpy(ascii_art[6], "\n ███  █   █  ██ ██");
+	strcpy(ascii_art[7], "\n ███    █ █  ██ ██");
+	strcpy(ascii_art[8], "\n ███ █  █ █     ██ Author: Max Prime");
 	strcpy(ascii_art[9], "\n ▀███████████████▀ Build:  2026.05.04");
 	
 	char output[1000] = "";
@@ -82,6 +61,29 @@ void kernel_main(void) {
 		printf(ascii_art[i]);
 	}
 	printf("\n");
-	printf("%s%s", output, "\n");
+	printf(strcat(output, "\n"));
+}
+
+void kernel_early_main(void) {
+
+	terminal_initialize();
+
+	printf("[EARLY MAIN] Max Unix early kernel...\n");
+
+	if (init_serial()==1) {
+		printf("[EARLY MAIN] Serial failure.\n");
+	} else {
+		printf("[EARLY MAIN] Serial success.\n");
+	}
+}
+
+void kernel_main(void) {
+
+	struct utsname info;
+	uname(&info);
+
+	printf("[MAIN] Hello, Max Unix World!\n");
+
+	maxfetch(info);
 
 }

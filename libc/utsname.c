@@ -17,10 +17,10 @@
 	Copyright (c) Max Prime 2026. All rights reserved.
 */
 
-#define SYSNAME "MaxUnix"
 #define NODENAME "maxunix"
+#define SYSNAME "MaxUnix"
 #define RELEASE "0.0.1"
-#define VERSION "v1"
+#define VERSION "#1 MAXUNIXBUILD Mon, 29 Jun 2026 02:55:01 +0100"
 #define MACHINE "i686"
 #define DOMAINNAME "(none)"
 
@@ -34,4 +34,5 @@ void uname(struct utsname *info) {
     strcpy(info->version, VERSION);
     strcpy(info->machine, MACHINE);
 	strcpy(info->_domainname, DOMAINNAME);
+
 }
