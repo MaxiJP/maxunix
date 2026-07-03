@@ -22,6 +22,9 @@ stack_top:
 .global _start
 .type _start, @function
 _start:
+	cli
+
+	call gdt_setup
 
 	call kernel_early_main
 
@@ -29,7 +32,6 @@ _start:
 
 	call kernel_main
 
-	cli
 1:	hlt
 	jmp 1b
 

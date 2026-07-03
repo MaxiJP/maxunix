@@ -19,6 +19,7 @@
 
 #include <kernel/serial.h>
 #include <kernel/tty.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -62,6 +63,9 @@ void printf(const char* data, ...)
 						break;
 					case 'd':
 						// its an integer, idfk man
+						char buffer[50];
+						itoa(va_arg(args, int), buffer);
+						printf(buffer);
 						break;
 				}
 				break;

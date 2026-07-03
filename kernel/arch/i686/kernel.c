@@ -24,6 +24,16 @@
 #include <string.h>
 #include <stdio.h>
 
+#include <stdlib.h>
+
+struct GDT {
+	uint32_t offset;
+	uint32_t base;
+	uint32_t limit;
+	uint8_t access_byte;
+	uint8_t flags;
+};
+
 void maxfetch(struct utsname info) {
 	char ascii_art[10][100];
 	strcpy(ascii_art[0], " ▄███████████████▄ Kernel:       ");
@@ -34,8 +44,8 @@ void maxfetch(struct utsname info) {
 	strcpy(ascii_art[5], "\n █████████████████");
 	strcpy(ascii_art[6], "\n ███  █   █  ██ ██");
 	strcpy(ascii_art[7], "\n ███    █ █  ██ ██");
-	strcpy(ascii_art[8], "\n ███ █  █ █     ██ Author: Max Prime");
-	strcpy(ascii_art[9], "\n ▀███████████████▀ Build:  2026.05.04");
+	strcpy(ascii_art[8], "\n ███ █  █ █     ██ Author/Porter: Max Prime");
+	strcpy(ascii_art[9], "\n ▀███████████████▀ Build:  2026.07.03");
 	
 	char output[1000] = "";
 	// generate the output that we should give to the terminal with all of the info
@@ -64,6 +74,33 @@ void maxfetch(struct utsname info) {
 	printf("%s%s", output, "\n");
 }
 
+void encodeGdtEntry(uint8_t *target, struct GDT source)
+{
+    // Check the limit to make sure that it can be encoded
+    if (source.limit > 0xFFFFF) {printf("GDT cannot encode limits larger than 0xFFFFF");}
+    
+    // Encode the limit
+    target[0] = source.limit & 0xFF;
+    target[1] = (source.limit >> 8) & 0xFF;
+    target[6] = (source.limit >> 16) & 0x0F;
+    
+    // Encode the base
+    target[2] = source.base & 0xFF;
+    target[3] = (source.base >> 8) & 0xFF;
+    target[4] = (source.base >> 16) & 0xFF;
+    target[7] = (source.base >> 24) & 0xFF;
+    
+    // Encode the access byte
+    target[5] = source.access_byte;
+    
+    // Encode the flags
+    target[6] |= (source.flags << 4);
+}
+
+void gdt_setup(void) {
+	
+}
+
 void kernel_early_main(void) {
 
 	terminal_initialize();
@@ -82,7 +119,7 @@ void kernel_main(void) {
 	struct utsname info;
 	uname(&info);
 
-	printf("[MAIN] Hello, Max Unix World!\n%s", "17\n");
+	printf("[MAIN] Hello, Max Unix World!\n%d%s", 1769, "\n");
 
 	maxfetch(info);
 

@@ -22,7 +22,8 @@ SRCS = \
 	libc/strlen.c \
 	libc/strcpy.c \
 	libc/strcat.c \
-	libc/printf.c
+	libc/printf.c \
+	libc/itoa.c
 
 OBJS = $(patsubst %.c, $(OUTPUT_DIR)/%.o, $(SRCS))
 
