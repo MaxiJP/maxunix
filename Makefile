@@ -1,5 +1,7 @@
+BUILD_DATE := $(shell date +"%a, %d %b %Y %T %z")
+
 CC = i686-elf-gcc
-CFLAGS=-std=gnu99 -ffreestanding -O2 -Wall -Wextra -fexec-charset=CP437
+CFLAGS=-std=gnu99 -ffreestanding -O2 -Wall -Wextra -fexec-charset=CP437 -DCOMPILE_TIME="\"$(BUILD_DATE)\""
 
 AS = i686-elf-as
 ASFLAGS=

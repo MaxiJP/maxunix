@@ -20,18 +20,23 @@
 #define NODENAME "maxunix"
 #define SYSNAME "MaxUnix"
 #define RELEASE "0.0.1"
-#define VERSION "#1 MAXUNIXBUILD Mon, 29 Jun 2026 02:55:01 +0100"
+#define VERSION "#1 MAXUNIXBUILD "
 #define MACHINE "i686"
 #define DOMAINNAME "(none)"
 
 #include <sys/utsname.h>
+#include <stdio.h>
 #include <string.h>
 
 void uname(struct utsname *info) {
+
+	char local_version[1000] = VERSION;
+	strcat(local_version, COMPILE_TIME);
+
     strcpy(info->nodename, NODENAME);
     strcpy(info->sysname, SYSNAME);
     strcpy(info->release, RELEASE);
-    strcpy(info->version, VERSION);
+    strcpy(info->version, local_version);
     strcpy(info->machine, MACHINE);
 	strcpy(info->_domainname, DOMAINNAME);
 

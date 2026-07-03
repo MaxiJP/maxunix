@@ -21,5 +21,6 @@
 #define _STDIO_H
 
 void printf(const char* data, ...);
+void serial_puts(const char data);
 
 #endif
