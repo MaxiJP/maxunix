@@ -24,7 +24,7 @@ stack_top:
 _start:
 	cli
 
-	call gdt_setup
+#	call gdt_setup
 
 	call kernel_early_main
 
