@@ -1,4 +1,7 @@
-![Manix Logo](logo.png)
+<p float="left">
+  <img src="/logo.png" width="125" />   
+  <img src="/maxunix_concept.png" width="275" />
+</p>
 
 # Manix (Max Unix)
 
