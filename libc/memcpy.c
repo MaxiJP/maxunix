@@ -17,15 +17,14 @@
 	Copyright (c) Max Prime 2026. All rights reserved.
 */
 
-#ifndef _STRING_H
-#define _STRING_H
+#include <string.h>
 
-#include <stddef.h>
+void *memcpy(void *destination, void *src, const int length) {
 
-size_t strlen(const char* str);
-char* strcat(char* dest, char* src);
-char* strcpy(char* dest, char* src);
-void *memset(void *dest, int value, int size);
-void *memcpy(void *dest, void *src, const int length);
-
-#endif
+    for (int i = 0; i < length; i++) {
+        ((unsigned char *)destination)[i] = ((unsigned char *)src)[i];
+    }
+    ((unsigned char *)destination)[length]='\0';
+    
+    return ((unsigned char *)destination);
+}

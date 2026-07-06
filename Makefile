@@ -19,6 +19,8 @@ SRCS = \
 	kernel/arch/i686/tty.c \
 	kernel/arch/i686/serial.c \
 	libc/utsname.c \
+	libc/memcpy.c \
+	libc/memset.c \
 	libc/strlen.c \
 	libc/strcpy.c \
 	libc/strcat.c \

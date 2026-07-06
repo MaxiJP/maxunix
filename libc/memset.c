@@ -17,15 +17,11 @@
 	Copyright (c) Max Prime 2026. All rights reserved.
 */
 
-#ifndef _STRING_H
-#define _STRING_H
+#include <string.h>
 
-#include <stddef.h>
-
-size_t strlen(const char* str);
-char* strcat(char* dest, char* src);
-char* strcpy(char* dest, char* src);
-void *memset(void *dest, int value, int size);
-void *memcpy(void *dest, void *src, const int length);
-
-#endif
+void *memset(void *dest, int value, int size) {
+    for (int i = 0; i < size; i++) {
+        ((unsigned char *)dest)[i] = value;
+    }
+    return dest;
+}

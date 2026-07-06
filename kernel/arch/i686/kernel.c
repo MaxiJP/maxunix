@@ -123,4 +123,9 @@ void kernel_main(void) {
 
 	maxfetch(info);
 
+	char buff[27] = "qwertyuiopasdfghjklzxcvbnm";
+	char printer[27] = ".......!";
+	memcpy(&printer, &buff, 5);
+	printf(printer);
+
 }
