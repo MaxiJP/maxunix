@@ -22,18 +22,6 @@ stack_top:
 .global _start
 .type _start, @function
 
-gdtr:
-	.word 0 # For limit storage
-    .long 0 # For base storage
-
-setGdt:
-	movw   4(%esp), %ax
-	movw   %ax, gdtr
-	movl   8(%esp), %eax
-	movl   %eax, gdtr+2
-	LGDT  [gdtr]
-	RET
-
 _start:
 	cli
 
