@@ -37,8 +37,6 @@ setGdt:
 _start:
 	cli
 
-	call gdt_setup
-
 	call kernel_early_main
 
 	mov $stack_top, %esp
